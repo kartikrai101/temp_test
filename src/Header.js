@@ -10,6 +10,7 @@ import {
 const songs = [
   { src: "/music/ed-photograph.mp3", name: "Photograph - Ed Sheeran" },
   { src: "/music/coldplay-yellow.mp3", name: "Yellow - Coldplay" },
+  { src: "/music/fate-of-ophelia.mp3", name: "Fate of Ophelia - Taylor Swift" },
   { src: "/music/make-you-mine.mp3", name: "Make You Mine - Public" },
 ];
 
