@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import {
   FaPlay,
   FaPause,
@@ -14,11 +15,26 @@ const songs = [
 
 const Header = () => {
   const audioRef = useRef(null);
+  const location = useLocation();
 
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentSongIndex, setCurrentSongIndex] = useState(0);
+
+  // 🔥 Set initial song based on route
+  const [currentSongIndex, setCurrentSongIndex] = useState(() =>
+    location.pathname === "/letter" ? 1 : 0
+  );
+
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+
+  // ✅ Update song when route changes
+  useEffect(() => {
+    if (location.pathname === "/letter") {
+      setCurrentSongIndex(1);
+    } else {
+      setCurrentSongIndex(0);
+    }
+  }, [location.pathname]);
 
   // ✅ AUTO PLAY FIRST SONG ON MOUNT
   useEffect(() => {
@@ -82,12 +98,12 @@ const Header = () => {
     };
   }, []);
 
-  // Auto play when song changes
+  // ✅ Auto play when song changes
   useEffect(() => {
     if (isPlaying) {
       audioRef.current.play();
     }
-  }, [currentSongIndex]);
+  }, [currentSongIndex, isPlaying]);  
 
   // Seek timeline
   const handleSeek = (e) => {
@@ -114,7 +130,6 @@ const Header = () => {
       />
 
       <div className="music-player">
-
         <div className="song-name">
           {songs[currentSongIndex].name}
         </div>
